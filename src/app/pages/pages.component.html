@@ -1,0 +1,49 @@
+
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+
+
+        <app-header></app-header>
+        <app-sidebar></app-sidebar>
+
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                 <!-- breadbrumbs -->
+                <!-- <app-breadbrumbs></app-breadbrumbs> -->
+
+                <!-- sistema de rutas -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <router-outlet></router-outlet>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <footer class="footer text-center">
+                © 2022 Adriano Engineering
+            </footer>
+
+
+        </div>
+
+    </div>
+
+    <app-modal-graphs></app-modal-graphs>

@@ -1,0 +1,77 @@
+<!-- modal -->
+<div class="bg-modal animated fadeIn"
+     [class.oculto]="modalServ.ocultarModal">
+
+    <div class="modal fade bs-example-modal-lg show" 
+        tabindex="-1" 
+        role="dialog" 
+        aria-labelledby="myLargeModalLabel" 
+        style="display: block">
+        <div class="modal-report">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Reporte de Prueba CalZeus</h4>
+                    <button type="button" 
+                            class="close" 
+                            data-dismiss="modal" 
+                            aria-hidden="true"
+                            (click)="cerrarModal()"
+                            [disabled]="cargando">×</button>
+                </div>
+                <div class="modal-body">
+                    <h5 *ngIf="!cargando">
+                        Test Serial Number:  <span class="badge badge-warning">{{ num_serie}}</span> - 
+                        Model:  <span class="badge badge-warning">{{ model}}</span> - 
+                        Start:     <span class="badge badge-warning">{{ test_start}}</span> 
+                        Stop:    <span class="badge badge-warning">{{ test_stop}}</span>
+                    </h5>
+                    
+                    <!-- loading -->
+                    <div class="row" *ngIf="cargando">
+                        <div class="col md-12 text-center">
+                            <div class=" alert alert">
+                                <h4 class="alert-heading"> Loading...</h4>
+                                <i class="fa fa-spin fa-refresh fa-2x"></i>
+                                <p class="mb-0">Please wait...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- error -->
+                    <div class="row" *ngIf="loadingError">
+                        <div class="col md-12 text-center">
+                            <div class=" alert alert-warning">
+                                <h4 class="alert-heading"> Error</h4>
+                                <!-- <i class="fa fa-alert fa-2x"></i> -->
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                <p class="mb-0">¡Please attemp again!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <div *ngIf="!cargando">
+                                <app-plotly-graph [_2fr] ="_2fr" [_2fz] ="_2fz" [_at] ="_at"[_curr] ="_curr"[_fr] ="_fr"[_fz] ="_fz" 
+                                                  [_im] ="_im" [_power] ="_power" [_rc] ="_rc" [_volt] ="_volt" [time] ="time" [ns] ="num_serie">
+                                </app-plotly-graph>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- --------- -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" 
+                            class="btn btn-danger waves-effect text-left" 
+                            data-dismiss="modal"
+                            (click)="cerrarModal()"
+                            [disabled]="cargando">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
