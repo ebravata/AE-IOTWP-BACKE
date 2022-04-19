@@ -20,7 +20,7 @@ export class ModalGraphsComponent implements OnInit, OnDestroy {
   public model= '';
   public test_start= '';
   public test_stop= '';
-  
+
   public time!:   number[];
   public _2fr!:   number[];
   public _2fz!:   number[];
@@ -34,19 +34,19 @@ export class ModalGraphsComponent implements OnInit, OnDestroy {
   public _volt!:  number[];
 
 
- 
+
   constructor( public modalServ: ModalService,
                public calzeusServ: CalzeusService) { }
 
   ngOnDestroy(): void {
     // console.log('ngOnDestroy');
-    
+
     this.subscriber.unsubscribe();
   }
 
   ngOnInit(): void {
-    
-    
+
+
     const subscriber = this.modalServ.lanzarQuery()
                       .subscribe( val => {
 
@@ -55,10 +55,10 @@ export class ModalGraphsComponent implements OnInit, OnDestroy {
                             this.getReport();
                             this.loadData = false;
                         }
-                        
+
                       });
   }
-  
+
   cerrarModal(){
     this.modalServ.cerrarModal();
     this.cargando= true;
@@ -68,8 +68,8 @@ export class ModalGraphsComponent implements OnInit, OnDestroy {
   getReport(){
 
      this.calzeusServ.getReport()
-        .subscribe( 
-          ( data: any )=>{ 
+        .subscribe(
+          ( data: any )=>{
 
               this.time     = data.time;
               this._2fr     = data._2fr;
@@ -86,7 +86,7 @@ export class ModalGraphsComponent implements OnInit, OnDestroy {
 
               this.num_serie= this.calzeusServ.dataTest.serial_number;
               this.test_start = this.calzeusServ.dataTest.range_start;
-              this.test_stop = this.calzeusServ.dataTest.range_start;
+              this.test_stop = this.calzeusServ.dataTest.range_stop;
               this.model = this.calzeusServ.dataTest.model;
 
           }
