@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CalzeusService } from 'src/app/services/calzeus.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    // private calzeusServ: CalzeusService
+    ) { }
 
   ngOnInit(): void {
+
+    // this.calzeusServ.getTests()
+    //     .subscribe({
+    //       next: ( res ) =>{
+    //         console.log(res);
+
+    //       }
+    //     })
+
   }
 
 }

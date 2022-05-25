@@ -3,5 +3,6 @@ export interface DataTest  {
     model:          string,
     station:        string,
     range_start:    string,
-    range_stop:     string
+    range_stop:     string,
+    id:             string
 }

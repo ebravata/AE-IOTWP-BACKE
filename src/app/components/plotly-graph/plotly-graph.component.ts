@@ -22,6 +22,17 @@ export class PlotlyGraphComponent implements OnInit {
 
   @Input('time') time!: number[];
 
+  // fzOnMax!: number[];
+  // fzOnMin!: number[];
+  // frMax!: number[];
+  // frMin!: number[];
+  timeForLimits!: number[];
+
+   // TempFZON_max = -15
+    // TempFZON_min = -28
+    // TempFR_max = 10
+    // TempFR_min = 0
+
 
   constructor() { }
 
@@ -29,28 +40,78 @@ export class PlotlyGraphComponent implements OnInit {
     const start = this.time[0]
     const end = this.time[this.time.length - 1]
     const lineDiv = document.getElementById('line-chart');
-  
+
+    this.timeForLimits = [start, end];
+
+    const trace_fzOnMax = {
+     x: this.timeForLimits,
+     y: [-15, -15],
+     type: 'scatter',
+     name: 'fzOnMax',
+     line: {
+        width: 1,
+        dash: 'dashdot',
+        color: 'rgb(255, 87, 51)'
+        }
+   };
+
+   const trace_fzOnMin = {
+     x: this.timeForLimits,
+     y: [-28, -28],
+     type: 'scatter',
+     name: 'fzOnMax',
+     line: {
+        width: 1,
+        dash: 'dashdot',
+        color: 'rgb(255, 87, 51)'
+        }
+   };
+
+   const trace_frMax = {
+     x: this.timeForLimits,
+     y: [10, 10],
+     type: 'scatter',
+     name: 'fzOnMax',
+     line: {
+        width: 1,
+        dash: 'dashdot',
+        color: 'rgb(255, 87, 51)'
+        }
+   };
+
+   const trace_frMin = {
+     x: this.timeForLimits,
+     y: [0, 0],
+     type: 'scatter',
+     name: 'fzOnMax',
+     line: {
+        width: 1,
+        dash: 'dashdot',
+        color: 'rgb(255, 87, 51)'
+        }
+   };
+
     const trace_2fr = {
      x: this.time,
      y: this._2fr,
      type: 'scatter',
      name: '2fr'
    };
-  
+
     const trace_2fz = {
      x: this.time,
      y: this._2fz,
      type: 'scatter',
      name: '2fz'
    };
-  
+
     const trace_fr = {
      x: this.time,
      y: this._fr,
      type: 'scatter',
      name: 'fr'
    };
-  
+
     const trace_fz = {
      x: this.time,
      y: this._fz,
@@ -61,35 +122,35 @@ export class PlotlyGraphComponent implements OnInit {
         with: 10
       }
    };
-  
+
     const trace_at = {
      x: this.time,
      y: this._at,
      type: 'scatter',
      name: 'at'
    };
-  
+
     const trace_curr = {
      x: this.time,
      y: this._curr,
      type: 'scatter',
      name: 'curr'
    };
-  
+
     const trace_im = {
      x: this.time,
      y: this._im,
      type: 'scatter',
      name: 'im'
    };
-  
+
     const trace_power = {
      x: this.time,
      y: this._power,
      type: 'scatter',
      name: 'power'
    };
-  
+
     const trace_rc = {
      x: this.time,
      y: this._rc,
@@ -101,7 +162,7 @@ export class PlotlyGraphComponent implements OnInit {
        size: 10
      }
    };
-  
+
     const trace_volt = {
      x: this.time,
      y: this._volt,
@@ -112,9 +173,10 @@ export class PlotlyGraphComponent implements OnInit {
       size: 10
     }
    };
-  
+
+
     const data = [
-                  trace_2fr, 
+                  trace_2fr,
                   trace_2fz,
                   trace_fr,
                   trace_fz,
@@ -123,15 +185,26 @@ export class PlotlyGraphComponent implements OnInit {
                   trace_im,
                   trace_power,
                   trace_rc,
-                  trace_volt
+                  trace_volt,
+                  trace_fzOnMax,
+                  trace_fzOnMin,
+                  trace_frMax,
+                  trace_frMin
                 ];
-  
+
+
+                // range=[1.5, 4.5]
+
     const layout = {
     //  title:`[${ this.ns }]`,
-    //  plot_bgcolor: 'rgba(0,0,0,1)',
+     plot_bgcolor: 'rgba(0,0,0,1)',
+     yaxis: {
+      // rangemode: 'tozero'
+      // range: [1.5, 45]
+    }
    };
-  
-    return new Plotly.plot( lineDiv, data, layout );
+
+    return new Plotly.plot( lineDiv, data, layout,  {displaylogo: false} );
   }
 
 }

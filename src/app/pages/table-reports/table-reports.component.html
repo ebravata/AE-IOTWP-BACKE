@@ -161,6 +161,15 @@
             </div>
         </div>
     </div>
+    <div class="row" *ngIf="errorLoadTests">
+        <div class="col md-12 text-center">
+            <div class=" alert alert-danger">
+                <h4 class="alert-heading"> {{ errorLoadTests.message}}</h4>
+                <i class="fa fa-warning fa-2x"></i>
+                <p class="mb-0">{{ errorLoadTests.name }}</p>
+            </div>
+        </div>
+    </div>
 
 
     <br>
@@ -201,15 +210,15 @@
 
                     <div class="table-responsive">
                         <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Fecha Inicio</th>
-                                    <th>Estación</th>
-                                    <th>Modelo</th>
-                                    <th>Número de Serie</th>
-                                    <th>Opción</th>
-                                </tr>
-                            </thead>
+                          <thead>
+                            <tr>
+                              <th>Fecha Inicio</th>
+                              <th>Estación</th>
+                              <th>Modelo</th>
+                              <th>Número de Serie</th>
+                              <th>Opción</th>
+                            </tr>
+                          </thead>
                             <tbody>
 
                                 <tr *ngFor="let test of pages">
@@ -218,7 +227,7 @@
                                         <span class="text-muted">
                                             <i class="fa fa-clock-o"></i>
                                         </span>
-                                        {{ test.range_start | date: 'medium' }}
+                                        {{ test.range_start | date: 'medium' :'GMT' }}
                                     </td>
                                     <td class="w150">{{ test.station }}</td>
                                     <td class="w200">{{ test.model }}</td>

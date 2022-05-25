@@ -15,7 +15,7 @@ export class ModalGraphsComponent implements OnInit, OnDestroy {
   public loadData= true;
 
   public cargando: boolean = true;
-  public loadingError: boolean = false;
+  public loadingError: any;
   public num_serie= '';
   public model= '';
   public test_start= '';
@@ -48,14 +48,14 @@ export class ModalGraphsComponent implements OnInit, OnDestroy {
 
 
     const subscriber = this.modalServ.lanzarQuery()
-                      .subscribe( val => {
+                      .subscribe({
+                        next: (val) => {
 
-                        if ( this.loadData && val){
-                            console.log('lanzar query');
-                            this.getReport();
-                            this.loadData = false;
-                        }
-
+                                if ( this.loadData && val){
+                                    this.getReport();
+                                    this.loadData = false;
+                                }
+                              }
                       });
   }
 
@@ -63,13 +63,15 @@ export class ModalGraphsComponent implements OnInit, OnDestroy {
     this.modalServ.cerrarModal();
     this.cargando= true;
     this.loadData = true;
+    this.loadingError= null;
   }
 
   getReport(){
 
      this.calzeusServ.getReport()
-        .subscribe(
-          ( data: any )=>{
+        .subscribe({
+
+          next: ( data: any )=>{
 
               this.time     = data.time;
               this._2fr     = data._2fr;
@@ -82,20 +84,21 @@ export class ModalGraphsComponent implements OnInit, OnDestroy {
               this._power   = data._power;
               this._rc      = data._rc;
               this._volt    = data._volt;
-              this.cargando = false;
 
               this.num_serie= this.calzeusServ.dataTest.serial_number;
               this.test_start = this.calzeusServ.dataTest.range_start;
-              this.test_stop = this.calzeusServ.dataTest.range_stop;
+              this.test_stop = (this.time[ this.time.length -1]).toString();
               this.model = this.calzeusServ.dataTest.model;
 
+          },
+          complete: () => {
+            this.cargando = false;
+          },
+          error: (err) => {
+            this.loadingError= err.error.error;
+            this.cargando = false;
           }
-          // , (error) =>{
-          //     console.log(`Error en la consulta a la BD: ${ error }`);
-          //     this.loadingError = true;
-          //     this.cargando = false;
-          // }
-          )
+          })
   }
 }
 
